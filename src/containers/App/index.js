@@ -40,7 +40,6 @@ export const App = () => (
     <JssProvider jss={jss} generateClassName={generateClassName}>
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
-          <Initial/>
         <Router history={history} />
       </MuiThemeProvider>
     </JssProvider>
