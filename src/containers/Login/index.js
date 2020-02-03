@@ -1,11 +1,16 @@
-import React from "react";
-import Form from '../../components/Form';
+import React, { Component } from 'react';
+import { connect } from 'react-redux'
 
-export function Login(props) {
+// import { Container } from './styles';
 
+export class Login extends Component {
+  render() {
     return (
-        <div>
-            <Form />
-        </div>
+      <div>
+        Login Page
+      </div>
     );
+  }
 }
+
+export default connect()(Login)
