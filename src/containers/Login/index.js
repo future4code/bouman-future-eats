@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import TextField from '@material-ui/core/TextField';
-import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import {ActionButton} from '../../components/ActionButton';
+import { ActionButton } from '../../components/ActionButton';
+import { connect } from 'react-redux'
+import { push } from 'connected-react-router'
+import { routes } from '../Router/index'
 
 const Root = styled.div`
   width: 100vw;
@@ -67,6 +69,7 @@ function Login(props) {
                     name="email"
                     type="email"
                     label="E-mail"
+                    placeholder="email@email.com"
                     value={email}
                     onChange={(event) => setEmail(event.target.value)}
                     margin="normal"
@@ -79,6 +82,7 @@ function Login(props) {
                     name="password"
                     type="password"
                     label="Senha"
+                    placeholder="Mínimo 6 caracteres"
                     value={password}
                     onChange={(event) => setPassword(event.target.value)}
                     margin="normal"
@@ -87,11 +91,11 @@ function Login(props) {
                     pattern={props.pattern}
                 />
 
-                <ActionButton text="Entrar"/>
+                <ActionButton text="Entrar" />
 
             </FormContainer>
 
-            <TextContainer onClick="">
+            <TextContainer onClick={props.goToSignUp}>
                 <Typography variant="h6">
                     Não possui cadastro? Clique aqui.
                 </Typography>
@@ -101,4 +105,8 @@ function Login(props) {
     )
 }
 
-export default withStyles(styles)(Login);
+const mapDispatchToProps = dispatch => ({
+    goToSignUp: () => dispatch(push(routes.signUp))
+})
+
+export default connect(null, mapDispatchToProps)(Login)
