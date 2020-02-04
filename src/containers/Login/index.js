@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import ActionButton from '../../components/ActionButton';
+import {ActionButton} from '../../components/ActionButton';
 
 const Root = styled.div`
   width: 100vw;
@@ -87,7 +87,7 @@ function Login(props) {
                     pattern={props.pattern}
                 />
 
-                <ActionButton />
+                <ActionButton text="Entrar"/>
 
             </FormContainer>
 
