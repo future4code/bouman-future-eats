@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
 import styled from 'styled-components'
-const ContainerButton = styled.div`
-  display: flex;
-  width: 375px;
-  height: 42px;
-  justify-content: center;
-`
+
 const Button = styled.button`
-  width: 328px;
+  width: 100%;
   height: 42px;
   border-radius: 5px;
   background-color: #5CB646;
@@ -30,9 +25,7 @@ export  class ActionButton extends Component {
   }
   render() {
     return (
-    <ContainerButton> 
       <Button> {this.props.text} </Button>
-    </ContainerButton>
     )
   }
 }
