@@ -6,6 +6,7 @@ import { ActionButton } from '../../components/ActionButton';
 import { connect } from 'react-redux'
 import { push } from 'connected-react-router'
 import { routes } from '../Router/index'
+import { login } from '../../actions/users'
 
 const Root = styled.div`
   width: 100vw;
@@ -52,6 +53,10 @@ const styles = theme => ({
 function Login(props) {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const handleSubmit = ev => {
+        ev.preventDefault()
+        props.login(email, password)
+    }
 
     return (
         <Root>
@@ -63,7 +68,11 @@ function Login(props) {
                 Entrar
             </Typography>
 
-            <FormContainer noValidate autoComplete="off">
+            <FormContainer
+                noValidate
+                autoComplete="off"
+                onSubmit={handleSubmit}
+            >
 
                 <TextField
                     name="email"
@@ -91,7 +100,7 @@ function Login(props) {
                     pattern={props.pattern}
                 />
 
-                <ActionButton text="Entrar" />
+                <ActionButton text="Entrar" type="submit" />
 
             </FormContainer>
 
@@ -106,7 +115,8 @@ function Login(props) {
 }
 
 const mapDispatchToProps = dispatch => ({
-    goToSignUp: () => dispatch(push(routes.signUp))
+    goToSignUp: () => dispatch(push(routes.signUp)),
+    login: (email, password) => dispatch(login(email, password))
 })
 
 export default connect(null, mapDispatchToProps)(Login)

@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { routes } from '../containers/Router'
+import { push } from 'connected-react-router'
 
 const baseUrl = 'https://us-central1-missao-newton.cloudfunctions.net/futureEats'
 
@@ -42,9 +43,9 @@ export const addAddress = address => dispatch => {
         "street": address.street,
         "number": address.number,
         "neighbourhood": address.neighbourhood,
-        "city": neighbourhood.city,
-        "state": neighbourhood.state,
-        "complement": neighbourhood.complement
+        "city": address.city,
+        "state": address.state,
+        "complement": address.complement
     }
 
     const headers = {
@@ -62,7 +63,7 @@ export const addAddress = address => dispatch => {
         response => {
             window.localStorage.setItem('token', response.token)
 
-            if (!response.user.hasAdress) {
+            if (response.user.hasAdress) {
                 dispatch(push(routes.home))
             }
         }
@@ -86,10 +87,12 @@ export const login = (email, password) => dispatch => {
         headers
     ).then(
         response => {
-            window.localStorage.setItem('token', response.token)
+            window.localStorage.setItem('token', response.data.token)
 
-            if (!response.user.hasAdress) {
+            if (response.data.user.hasAddress) {
                 dispatch(push(routes.home))
+            } else {
+                dispatch(push(routes.address))
             }
         }
     ).catch(

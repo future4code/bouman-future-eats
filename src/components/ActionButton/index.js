@@ -25,7 +25,7 @@ export  class ActionButton extends Component {
   }
   render() {
     return (
-      <Button> {this.props.text} </Button>
+      <Button type={this.props.type}> {this.props.text} </Button>
     )
   }
 }
