@@ -6,7 +6,8 @@ import { ActionButton } from '../../components/ActionButton';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import { routes } from '../Router/index';
- import {HeaderNav} from '../../components/HeaderNav';
+import { goBack } from 'connected-react-router';
+import { HeaderNav } from '../../components/HeaderNav';
 
 const Root = styled.div`
   width: 100vw;
@@ -38,7 +39,7 @@ function SignUp(props) {
 
     return (
         <Root>
-            <HeaderNav display="none" menuText="Home" />
+            <HeaderNav onClick={() => props.goBack() }  />
 
             <Banner>
                 <img src={require('../../img/logo-future-eats-invert.png')} />
@@ -122,7 +123,7 @@ function SignUp(props) {
 }
 
 const mapDispatchToProps = dispatch => ({
-    goToAddress: () => dispatch(push(routes.address))
+    goBack: () => dispatch(goBack()),
 })
 
 export default connect(null, mapDispatchToProps)(SignUp)

@@ -38,7 +38,7 @@ export class HeaderNav extends Component {
   render() {
     return (
         <StyledDiv>          
-          <img src ={BackArrow} style={{display: this.props.display}}></img>
+          <img onClick={this.props.onClick} src ={BackArrow} style={{display: this.props.display}}></img>
           <StyledP>{this.props.menuText } </StyledP>          
         </StyledDiv>
       )
