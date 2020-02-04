@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`initial page snapshot 1`] = `
+<div
+  className="sc-bdVaJa gCACoJ"
+>
+  <img
+    src="back.png"
+    style={
+      Object {
+        "display": "flex",
+      }
+    }
+  />
+  <p
+    className="sc-bwzfXH ghRyg"
+  >
+    Busca
+     
+  </p>
+</div>
+`;
