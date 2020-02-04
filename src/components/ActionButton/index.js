@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 import styled from 'styled-components'
-
+const ContainerButton = styled.div`
+  display: flex;
+  width: 375px;
+  height: 42px;
+  justify-content: center;
+`
 const Button = styled.button`
-  width: 296px;
-  height: 18px;
+  width: 328px;
+  height: 42px;
+  border-radius: 5px;
+  background-color: #5CB646;
   font-family: Roboto;
   font-size: 16px;
   font-weight: normal;
@@ -13,12 +20,19 @@ const Button = styled.button`
   letter-spacing: -0.39px;
   text-align: center;
   color: #000000;
+  border: none;
+  margin-top: 10px;
 `
-
 // import { Container } from './styles';
-
-export default class ActionButton extends Component {
+export  class ActionButton extends Component {
+  constructor(props){
+    super(props)
+  }
   render() {
-    return <div />;
+    return (
+    <ContainerButton> 
+      <Button> {this.props.text} </Button>
+    </ContainerButton>
+    )
   }
 }
