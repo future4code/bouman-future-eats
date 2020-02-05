@@ -9,6 +9,7 @@ const StyledDiv = styled.div `
   align-items: center;
   border-bottom: 1px solid grey;
   justify-content: center;
+  background-color: white;
   img {    
     width: 23px;
     height: 24px;
@@ -25,22 +26,19 @@ const StyledP = styled.p `
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: -0.39px;
+  letter-spacing: -0.39px;  
   text-align: center;
   color: #000000;
+  background-color: white;
 `
 
 
-export class HeaderNav extends Component {
-  constructor(props){
-    super(props)
-  }
-  render() {
+export function HeaderNav(props) {
+
     return (
         <StyledDiv>          
-          <img onClick={this.props.onClick} src ={BackArrow} style={{display: this.props.display}}></img>
-          <StyledP>{this.props.menuText } </StyledP>          
+          <img onClick={props.onClick} src ={BackArrow} style={{display: props.display}}></img>
+          <StyledP>{props.menuText } </StyledP>          
         </StyledDiv>
       )
-  }
 }

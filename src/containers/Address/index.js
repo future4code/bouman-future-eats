@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import TextField from '@material-ui/core/TextField';
-import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { ActionButton } from '../../components/ActionButton';
+import { connect } from 'react-redux'
+
 
 const Root = styled.div`
   width: 100vw;
@@ -29,23 +30,6 @@ const FormContainer = styled.form`
 const TextContainer = styled.div`
     margin: 20px;
 `
-
-const styles = theme => ({
-    container: {
-        display: 'flex',
-        flexWrap: 'wrap',
-    },
-    textField: {
-        marginLeft: theme.spacing.unit,
-        marginRight: theme.spacing.unit,
-    },
-    dense: {
-        marginTop: 16,
-    },
-    menu: {
-        width: 200,
-    },
-});
 
 function Address(props) {
     const [logradouro, setLogradouro] = useState("")
@@ -155,4 +139,4 @@ function Address(props) {
     )
 }
 
-export default withStyles(styles)(Address);
+export default connect()(Address);
