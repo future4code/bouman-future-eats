@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -22,51 +22,96 @@ const styles = theme => ({
   root: {
     flexGrow: 1,
     width: '95%',
-    backgroundColor: theme.palette.background.paper,
   },
 });
 
-class ScrollableTabsButtonAuto extends React.Component {
-  state = {
-    value: 0,
+function CategoryTabs(props) {
+
+  const [value, setValue] = useState(0)
+
+  const [category, setCategory] = useState("Todos")
+
+  const handleChange = (event, value) => {
+    setValue(value)
   };
 
-  handleChange = (event, value) => {
-    this.setState({ value });
-  };
-
-  render() {
-    const { classes } = this.props;
-    const { value } = this.state;
-
-    return (
-      <div className={classes.root}>
-        <AppBar position="static" color="default">
-          <Tabs
-            value={value}
-            onChange={this.handleChange}
-            indicatorColor="main"
-            textColor="primary"
-            variant="scrollable"
-            scrollButtons="auto"
-          >
-            <Tab style={{ width: '100px' }} label="Burger" />
-            <Tab style={{ width: '100px' }} label="Asiática" />
-            <Tab style={{ width: '100px' }} label="Massas" />
-            <Tab style={{ width: '100px' }} label="Saudáveis" />
-          </Tabs>
-        </AppBar>
-        {value === 0 && <TabContainer>Burger</TabContainer>}
-        {value === 1 && <TabContainer>Asiática</TabContainer>}
-        {value === 2 && <TabContainer>Massas</TabContainer>}
-        {value === 3 && <TabContainer>Saudáveis</TabContainer>}
-      </div>
-    );
+  const verifyValue = (event, id) => {
+    if(value === id){
+      setValue(0)
+    }
   }
+
+  return (
+    <div>
+      <AppBar position="static" color="default">
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          indicatorColor="main"
+          textColor="primary"
+          variant="scrollable"
+          scrollButtons="auto"
+        >
+          <Tab style={{ width: '100px' }} label="Todos" />
+          <Tab onClick={(event) => verifyValue(event, 1)} style={{ width: '100px' }} label="Burger" />
+          <Tab onClick={(event) => verifyValue(event, 2)} style={{ width: '100px' }} label="Asiática" />
+          <Tab onClick={(event) => verifyValue(event, 3)} style={{ width: '100px' }} label="Massas" />
+          <Tab onClick={(event) => verifyValue(event, 4)} style={{ width: '100px' }} label="Árabe" />
+        </Tabs>
+      </AppBar>
+      {value === 0 && <TabContainer>{/* props. */restaurants.map(
+        (restaurant) => (restaurant.name)
+      )}</TabContainer>}
+
+      {value === 1 && <TabContainer>{/* props. */restaurants.filter(
+        (restaurant) => (restaurant.category === "Burger")
+      ).map(
+        (restaurant) => (restaurant.name)
+      )}</TabContainer>}
+
+      {value === 2 && <TabContainer>{/* props. */restaurants.filter(
+        (restaurant) => (restaurant.category === "Asiática")
+      ).map(
+        (restaurant) => (restaurant.name)
+      )}</TabContainer>}
+
+      {value === 3 && <TabContainer>{/* props. */restaurants.filter(
+        (restaurant) => (restaurant.category === "Massas")
+      ).map(
+        (restaurant) => (restaurant.name)
+      )}</TabContainer>}
+
+      {value === 4 && <TabContainer>{/* props. */restaurants.filter(
+        (restaurant) => (restaurant.category === "Árabe")
+      ).map(
+        (restaurant) => (restaurant.name)
+      )}</TabContainer>}
+    </div>
+  );
+
 }
 
-ScrollableTabsButtonAuto.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
+export default withStyles(styles)(CategoryTabs);
 
-export default withStyles(styles)(ScrollableTabsButtonAuto);
+const restaurants = [
+  {
+    "id": "1",
+    "description": "Habib's é uma rede de restaurantes de comida rápida brasileira especializada em culinária árabe, os restaurantes vendem mais de 600 milhões de esfirras por ano. A empresa emprega 22 mil colaboradores e tem 421 unidades distribuídas em mais de cem municípios em 20 unidades federativas.",
+    "shipping": 6,
+    "address": "Rua das Margaridas, 110 - Jardim das Flores",
+    "name": "Habibs",
+    "logoUrl": "http://soter.ninja/futureFoods/logos/habibs.jpg",
+    "deliveryTime": 60,
+    "category": "Árabe"
+  },
+  {
+    "id": "10",
+    "address": "Travessa Reginaldo Pereira, 130 - Ibitinga",
+    "name": "Tadashii",
+    "logoUrl": "http://soter.ninja/futureFoods/logos/tadashii.png",
+    "deliveryTime": 50,
+    "category": "Asiática",
+    "description": "Restaurante sofisticado busca o equilíbrio entre ingredientes que realçam a experiência da culinária japonesa.",
+    "shipping": 13
+  }
+]
