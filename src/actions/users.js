@@ -25,14 +25,14 @@ export const signUp = user => dispatch => {
         headers
     ).then(
         response => {
-            window.localStorage.setItem('token', response.token)
+            window.localStorage.setItem('token', response.data.token)
 
-            if (!response.user.hasAdress) {
+            if (!response.data.user.hasAddress) {
                 dispatch(push(routes.address))
             }
         }
     ).catch(
-        error => alert(error.message)
+        error => alert(error)
     )
 }
 
@@ -61,14 +61,14 @@ export const addAddress = address => dispatch => {
         headers
     ).then(
         response => {
-            window.localStorage.setItem('token', response.token)
+            window.localStorage.setItem('token', response.data.token)
 
-            if (response.user.hasAdress) {
+            if (response.data.user.hasAddress) {
                 dispatch(push(routes.home))
             }
         }
     ).catch(
-        error => alert(error.message)
+        error => alert(error)
     )
 }
 

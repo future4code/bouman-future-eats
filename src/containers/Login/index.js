@@ -69,7 +69,6 @@ function Login(props) {
             </Typography>
 
             <FormContainer
-                noValidate
                 autoComplete="off"
                 onSubmit={handleSubmit}
             >
@@ -83,8 +82,7 @@ function Login(props) {
                     onChange={(event) => setEmail(event.target.value)}
                     margin="normal"
                     variant="outlined"
-                    required
-                    pattern={props.pattern}
+                    required                   
                 />
 
                 <TextField
@@ -97,7 +95,6 @@ function Login(props) {
                     margin="normal"
                     variant="outlined"
                     required
-                    pattern={props.pattern}
                 />
 
                 <ActionButton text="Entrar" type="submit" />
