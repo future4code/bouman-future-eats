@@ -2,6 +2,7 @@ import { createMuiTheme } from "@material-ui/core";
 
 export default createMuiTheme({
   palette: {
+    type:'light',
     primary: {
        // light: will be calculated from palette.primary.main,
       main: '#5cb646',

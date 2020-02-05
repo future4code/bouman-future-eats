@@ -23,8 +23,18 @@ p {
   color: #5cb646;
   margin-bottom: 8px;
 }
-
 `
+
+//protótipo de renderização condicional caso não haja nenhum pedido no histórico do cliente
+let pastOrders
+
+if (pastOrders === undefined || pastOrders === null) {
+  return (
+    <p>Você não realizou nenhum pedido</p>
+  )
+}
+
+//
 
 function OrderHistory (props){
   return(
