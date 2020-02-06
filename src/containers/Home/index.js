@@ -5,16 +5,16 @@ import CategoryTabs from '../../components/CategoryTabs';
 import { HeaderNav } from '../../components/HeaderNav';
 import SearchBar from '../../components/SearchBar';
 
-function Home(props){
+export function Home(props){
     //react hooks
 
     return (
-        <div>
-            <HeaderNav onClick={() => props.goBack() } menuText="FutureEats" />
-            <SearchBar />
-            <CategoryTabs />
-            <BottomNav />
-        </div>
+            <div>
+                <HeaderNav onClick={() => props.goBack() } menuText="FutureEats" />
+                <SearchBar />
+                <CategoryTabs />
+                <BottomNav />
+          </div>
     )
 }
 
