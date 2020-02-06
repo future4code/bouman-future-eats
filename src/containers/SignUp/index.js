@@ -8,6 +8,7 @@ import { push } from 'connected-react-router';
 import { routes } from '../Router/index';
 import { goBack } from 'connected-react-router';
 import { HeaderNav } from '../../components/HeaderNav';
+import { signUp } from '../../actions/users'
 
 const Root = styled.div`
   width: 100vw;
@@ -37,6 +38,11 @@ function SignUp(props) {
     const [password, setPassword] = useState("")
     const [confirm, setConfirm] = useState("")
 
+    const handleSubmit = (ev) => {
+        ev.preventDefault()
+        props.signUp({name, email, cpf, password})
+    }
+
     return (
         <Root>
             <HeaderNav onClick={() => props.goBack() }  />
@@ -48,7 +54,10 @@ function SignUp(props) {
                 Cadastrar
             </Typography>
 
-            <FormContainer noValidate autoComplete="off">
+            <FormContainer 
+            autoComplete="off"
+            onSubmit={handleSubmit}
+            >
 
                 <TextField
                     name="name"
@@ -86,7 +95,7 @@ function SignUp(props) {
                     margin="normal"
                     variant="outlined"
                     required
-                    pattern={props.pattern}
+                    
                 />
 
                 <TextField
@@ -115,7 +124,7 @@ function SignUp(props) {
                     pattern={props.pattern}
                 />
 
-                <ActionButton text="Criar" />
+                <ActionButton type='submit' text="Criar" />
 
             </FormContainer>
         </Root>
@@ -124,6 +133,7 @@ function SignUp(props) {
 
 const mapDispatchToProps = dispatch => ({
     goBack: () => dispatch(goBack()),
+    signUp: (user) => dispatch(signUp(user))
 })
 
 export default connect(null, mapDispatchToProps)(SignUp)

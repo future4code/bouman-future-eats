@@ -4,6 +4,7 @@ import LogoImg from '../../img/logo-future-eats.png'
 import { connect } from 'react-redux'
 import { push } from 'connected-react-router'
 import { routes } from '../Router/index'
+import { getProfile } from '../../actions/users'
 
 
 const MainContainer = styled.div`
@@ -23,7 +24,19 @@ const StyledImg = styled.img`
 
 export function InitialPage(props) {
   useEffect(
-    () => { setTimeout(() => { props.goToLogin() }, 3000) }, []
+    () => {
+      setTimeout(
+        () => {
+          const token = window.localStorage.getItem('token')
+          if (token) {
+            props.getProfile()
+          } else {
+            props.goToLogin()
+          }
+        },
+        3000
+      )
+    }, []
   )
 
   return (
@@ -34,7 +47,8 @@ export function InitialPage(props) {
 }
 
 const mapDispatchToProps = dispatch => ({
-  goToLogin: () => dispatch(push(routes.login))
+  goToLogin: () => dispatch(push(routes.login)),
+  getProfile: () => dispatch(getProfile())
 })
 
 export default connect(null, mapDispatchToProps)(InitialPage)

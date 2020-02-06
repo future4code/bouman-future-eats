@@ -1,4 +1,6 @@
 import axios from 'axios'
+import { routes } from '../../containers/Router'
+import { push } from 'connected-react-router'
 
 
 const baseUrl = 'https://us-central1-missao-newton.cloudfunctions.net/futureEats/restaurants'
@@ -22,7 +24,7 @@ export const getRestaurants = () => dispatch => {
 
     axios.get(baseUrl, headers).then(
         response => dispatch(
-            dispatch( storeRestaurantList(response.data.restaurants) )
+            dispatch(storeRestaurantList(response.data.restaurants))
         )
     ).catch(
         error => alert(error)
@@ -37,9 +39,10 @@ export const getRestaurantDetails = (id) => dispatch => {
     }
 
     axios.get(`${baseUrl}/${id}`, headers).then(
-        response => dispatch(
-            dispatch( selectRestaurant(response.data.restaurant) )
-        )
+        response => {
+            dispatch( selectRestaurant(response.data.restaurant))
+            dispatch( push(routes.restaurants))
+        }
     ).catch(
         error => alert(error)
     )
