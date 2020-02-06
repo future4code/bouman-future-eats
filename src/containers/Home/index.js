@@ -9,7 +9,7 @@ function Home(){
         <div>
             <BottomNav />
         </div>
-    )
+    ) 
 }
 
 export default connect()(Home)
