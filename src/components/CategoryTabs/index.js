@@ -5,6 +5,9 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
+import { RestaurantCard } from '../RestaurantCard'
+import { connect } from 'react-redux'
+import { getRestaurants, getRestaurantDetails } from '../../actions/restaurants'
 
 function TabContainer(props) {
   return (
@@ -28,7 +31,6 @@ const styles = theme => ({
 function CategoryTabs(props) {
 
   const [value, setValue] = useState(0)
-
   const [category, setCategory] = useState("Todos")
 
   const handleChange = (event, value) => {
@@ -36,10 +38,15 @@ function CategoryTabs(props) {
   };
 
   const verifyValue = (event, id) => {
-    if(value === id){
+    if (value === id) {
       setValue(0)
     }
   }
+
+  React.useEffect(
+    () => props.getRestaurants(),
+    []
+  )
 
   return (
     <div>
@@ -53,65 +60,47 @@ function CategoryTabs(props) {
           scrollButtons="auto"
         >
           <Tab style={{ width: '100px' }} label="Todos" />
-          <Tab onClick={(event) => verifyValue(event, 1)} style={{ width: '100px' }} label="Burger" />
+          <Tab onClick={(event) => verifyValue(event, 1)} style={{ width: '100px' }} label="Burguer" />
           <Tab onClick={(event) => verifyValue(event, 2)} style={{ width: '100px' }} label="Asiática" />
-          <Tab onClick={(event) => verifyValue(event, 3)} style={{ width: '100px' }} label="Massas" />
+          <Tab onClick={(event) => verifyValue(event, 3)} style={{ width: '100px' }} label="Italiana" />
           <Tab onClick={(event) => verifyValue(event, 4)} style={{ width: '100px' }} label="Árabe" />
         </Tabs>
       </AppBar>
-      {value === 0 && <TabContainer>{/* props. */restaurants.map(
-        (restaurant) => (restaurant.name)
-      )}</TabContainer>}
-
-      {value === 1 && <TabContainer>{/* props. */restaurants.filter(
-        (restaurant) => (restaurant.category === "Burger")
+      <TabContainer>{props.restaurantList.filter(
+        (restaurant) => (
+          value === 0 || 
+          (value === 1 && restaurant.category === "Hamburguer") ||
+          (value === 2 && restaurant.category === "Asiática") ||
+          (value === 3 && restaurant.category === "Italiana") ||
+          (value === 4 && restaurant.category === "Árabe") 
+        //  ||          (prosp.searchFilter !== null && restaurant.name.includes(searchFilter))
+        )  
       ).map(
-        (restaurant) => (restaurant.name)
-      )}</TabContainer>}
-
-      {value === 2 && <TabContainer>{/* props. */restaurants.filter(
-        (restaurant) => (restaurant.category === "Asiática")
-      ).map(
-        (restaurant) => (restaurant.name)
-      )}</TabContainer>}
-
-      {value === 3 && <TabContainer>{/* props. */restaurants.filter(
-        (restaurant) => (restaurant.category === "Massas")
-      ).map(
-        (restaurant) => (restaurant.name)
-      )}</TabContainer>}
-
-      {value === 4 && <TabContainer>{/* props. */restaurants.filter(
-        (restaurant) => (restaurant.category === "Árabe")
-      ).map(
-        (restaurant) => (restaurant.name)
-      )}</TabContainer>}
+        (restaurant) => <RestaurantCard
+          name={restaurant.name}
+          category={restaurant.category}
+          photoUrl={restaurant.logoUrl}
+          shipping={restaurant.shipping}
+          deliveryTime={restaurant.deliveryTime}
+          onclick={() => props.getRestaurantDetails(restaurant.id)}
+        />
+      )}</TabContainer>     
     </div>
   );
 
 }
 
-export default withStyles(styles)(CategoryTabs);
+function mapStateToProps(state) {
+  return ({
+    restaurantList: state.restaurants.restaurantList,
+  })
 
-const restaurants = [
-  {
-    "id": "1",
-    "description": "Habib's é uma rede de restaurantes de comida rápida brasileira especializada em culinária árabe, os restaurantes vendem mais de 600 milhões de esfirras por ano. A empresa emprega 22 mil colaboradores e tem 421 unidades distribuídas em mais de cem municípios em 20 unidades federativas.",
-    "shipping": 6,
-    "address": "Rua das Margaridas, 110 - Jardim das Flores",
-    "name": "Habibs",
-    "logoUrl": "http://soter.ninja/futureFoods/logos/habibs.jpg",
-    "deliveryTime": 60,
-    "category": "Árabe"
-  },
-  {
-    "id": "10",
-    "address": "Travessa Reginaldo Pereira, 130 - Ibitinga",
-    "name": "Tadashii",
-    "logoUrl": "http://soter.ninja/futureFoods/logos/tadashii.png",
-    "deliveryTime": 50,
-    "category": "Asiática",
-    "description": "Restaurante sofisticado busca o equilíbrio entre ingredientes que realçam a experiência da culinária japonesa.",
-    "shipping": 13
-  }
-]
+}
+
+const mapDispatchToProps = dispatch => ({
+  getRestaurants: () => dispatch(getRestaurants()),
+  getRestaurantDetails:  (id) => dispatch(getRestaurantDetails(id))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(CategoryTabs);
+

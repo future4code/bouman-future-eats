@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import styled from 'styled-components'
-import BurgerImg from '../../img/image.png'
 
 const MainContainer = styled.div `
   display: flex;
@@ -42,12 +41,12 @@ export  class RestaurantCard extends Component {
   }
   render() {
     return (
-      <MainContainer>
-        <img src={BurgerImg}></img>
-        <RestaurantName>Bullguer Vila Madalena</RestaurantName>
-        <ContextP>Burger</ContextP>
-        <ContextP>50 - 60 min Frete R$6,00</ContextP>
-        <ContextP>R.Fradique Coutinho 1136 - Vila Madalena</ContextP>
+      <MainContainer onClick={this.props.onclick}>
+        <img width='75' src={this.props.photoUrl}></img>
+        <RestaurantName>{this.props.name}</RestaurantName>
+        <ContextP>{this.props.category}</ContextP>
+        <ContextP>{`${this.props.deliveryTime} min        Frete R$${this.props.shipping},00`}</ContextP>
+        <ContextP>{this.props.address}</ContextP>
       </MainContainer>
     );
   }

@@ -4,6 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { ActionButton } from '../../components/ActionButton';
 import { connect } from 'react-redux'
+import  { addAddress } from '../../actions/users'
 
 
 const Root = styled.div`
@@ -32,12 +33,26 @@ const TextContainer = styled.div`
 `
 
 function Address(props) {
-    const [logradouro, setLogradouro] = useState("")
-    const [numero, setNumero] = useState("")
-    const [complemento, setComplemento] = useState("")
-    const [bairro, setBairro] = useState("")
-    const [cidade, setCidade] = useState("")
-    const [estado, setEstado] = useState("")
+    const [street, setLogradouro] = useState("")
+    const [number, setNumero] = useState("")
+    const [complement, setComplement] = useState("")
+    const [neighbourhood, setBairro] = useState("")
+    const [city, setCidade] = useState("")
+    const [state, setEstado] = useState("")
+
+    const handleSubmit = ev => {
+        ev.preventDefault()
+        props.addAddress(
+            {
+                street,
+                number,
+                complement,
+                neighbourhood,
+                city,
+                state
+            }
+        )
+    }
 
     return (
         <Root>
@@ -48,15 +63,18 @@ function Address(props) {
                 Meu endereço
             </Typography>
 
-            <FormContainer noValidate autoComplete="off">
+            <FormContainer
+                autoComplete="off"
+                onSubmit={handleSubmit}
+            >
 
                 <TextField
-                //Logradouro
+                    //Logradouro
                     name="logradouro"
                     type="text"
                     label="Logradouro"
                     placeholder="Rua / Av."
-                    value={logradouro}
+                    value={street}
                     onChange={(event) => setLogradouro(event.target.value)}
                     margin="normal"
                     variant="outlined"
@@ -65,12 +83,12 @@ function Address(props) {
                 />
 
                 <TextField
-                //Número
+                    //Número
                     name="numero"
                     type="text"
                     label="Número"
                     placeholder="Número"
-                    value={numero}
+                    value={number}
                     onChange={(event) => setNumero(event.target.value)}
                     margin="normal"
                     variant="outlined"
@@ -79,64 +97,69 @@ function Address(props) {
                 />
 
                 <TextField
-                //Complemento
+                    //Complemento
                     name="complemento"
                     type="text"
                     label="Complemento"
                     placeholder="Apto. / Bloco"
-                    value={complemento}
-                    onChange={(event) => setComplemento(event.target.value)}
+                    value={complement}
+                    onChange={(event) => setComplement(event.target.value)}
                     margin="normal"
                     variant="outlined"
-                    required
                     pattern={props.pattern}
-                />            
+                />
 
                 <TextField
-                //Bairro
+                    //Bairro
                     name="bairro"
                     type="text"
                     label="Bairro"
                     placeholder="Bairro"
-                    value={bairro}
+                    value={neighbourhood}
                     onChange={(event) => setBairro(event.target.value)}
                     margin="normal"
                     variant="outlined"
                     required
                     pattern={props.pattern}
-                />                           
+                />
 
                 <TextField
-                //Cidade
+                    //Cidade
                     name="cidade"
                     type="text"
                     label="Cidade"
                     placeholder="Cidade"
-                    value={cidade}
+                    value={city}
                     onChange={(event) => setCidade(event.target.value)}
                     margin="normal"
                     variant="outlined"
                     required
                     pattern={props.pattern}
-                />      
+                />
 
                 <TextField
-                //Estado
+                    //Estado
                     name="estado"
                     type="text"
                     label="Estado"
                     placeholder="Estado"
-                    value={estado}
+                    value={state}
                     onChange={(event) => setEstado(event.target.value)}
                     margin="normal"
                     variant="outlined"
                     required
                     pattern={props.pattern}
-                />                            
-                <ActionButton text="Salvar"></ActionButton>
+                />
+                <ActionButton type='submit' text="Salvar"></ActionButton>
             </FormContainer>
         </Root>
     )
 }
 
-export default connect()(Address);
+function mapDispatchToProps(dispatch){
+    return({
+        addAddress: (address) => dispatch(addAddress(address))
+    })
+}
+
+export default connect(null, mapDispatchToProps)(Address);

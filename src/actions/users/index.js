@@ -38,9 +38,8 @@ export const signUp = user => dispatch => {
 
             window.localStorage.setItem('token', response.data.token)            
             dispatch(storeProfile(response.data.user))
-            if (!response.data.user.hasAddress) {
-                dispatch(push(routes.address))
-            }
+            dispatch(push(routes.address))
+            
 
         }
     ).catch(
@@ -75,9 +74,7 @@ export const addAddress = address => dispatch => {
         response => {
             window.localStorage.setItem('token', response.data.token)
             dispatch(storeProfile(response.data.user))
-            if (response.data.user.hasAddress) {
-                dispatch(push(routes.home))
-            }
+            dispatch(push(routes.home))            
         }
     ).catch(
         error => alert(error)
@@ -151,7 +148,12 @@ export const getProfile = () => dispatch => {
         headers
     ).then(
         response => {
-            dispatch(storeProfile(response.data.user))          
+            dispatch(storeProfile(response.data.user)) 
+            if (!response.data.user.hasAddress){
+                dispatch(push(routes.address))
+            } else {
+                dispatch(push(routes.home))
+            }        
         }
     ).catch(
         error => alert(error)

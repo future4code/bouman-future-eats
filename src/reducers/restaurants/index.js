@@ -20,13 +20,14 @@ export const restaurants = (state = initialState, action) => {
         case 'STORE_RESTAURANT_LIST':
             return ({
                 ...state,
-                restaurantList: action.payload
+                restaurantList: action.payload.restaurants
             })
         case 'SELECT_RESTAURANT':
             return ({
                 ...state,
-                selectedRestaurant: action.payload
+                selectedRestaurant: action.payload.restaurant
             })
-        default: return state
+        default: 
+            return ({...state})
     }
 }
