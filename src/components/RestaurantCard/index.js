@@ -4,7 +4,22 @@ import styled from 'styled-components'
 const MainContainer = styled.div `
   display: flex;
   width: 100%;
+  /* height: 188px; */
   flex-direction: column;
+  border-radius: 8px;
+  border: solid 1px #b8b8b8;
+  margin-bottom: 8px;
+`
+
+const ImgLogoDiv = styled.div `
+  width: 325px;
+  img {
+    width: 100%;
+    box-sizing: border-box;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    margin: 0px;
+  }
 `
 
 const RestaurantName = styled.p`
@@ -18,6 +33,7 @@ const RestaurantName = styled.p`
   line-height: normal;
   letter-spacing: -0.39px;
   color: #5cb646;
+  padding: 16px;
 `
 
 const ContextP = styled.p`
@@ -33,6 +49,9 @@ const ContextP = styled.p`
   color: #b8b8b8;
   margin: 0px;
   margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 16px;
 `
 
 export class RestaurantCard extends Component {
@@ -42,10 +61,11 @@ export class RestaurantCard extends Component {
   render() {
     return (
       <MainContainer onClick={this.props.onclick}>
-        <img width='75' src={this.props.photoUrl}></img>
-        <RestaurantName>{this.props.name}</RestaurantName>
-        <ContextP>{this.props.category}</ContextP>
-        <ContextP>{`${this.props.deliveryTime} min        Frete R$${this.props.shipping},00`}</ContextP>
+        <ImgLogoDiv>
+          <img src={this.props.photoUrl}/>
+        </ImgLogoDiv>
+        <RestaurantName>{this.props.name}</RestaurantName>        
+        <ContextP><span>{`${this.props.deliveryTime - 5} - ${this.props.deliveryTime} min `}</span><span>{`Frete R$${this.props.shipping},00`}</span></ContextP>
         <ContextP>{this.props.address}</ContextP>
       </MainContainer>
     );
