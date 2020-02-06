@@ -2,6 +2,14 @@ import React from 'react';
 import styled from 'styled-components'
 import ImgDish from '../../img/dishImg.png'
 
+
+import Dialog from '@material-ui/core/Dialog';
+import Button from '@material-ui/core/Button';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+
 const MainContainer = styled.div`
   width: 328px;
   height: 112px;
@@ -16,7 +24,7 @@ const TextContainer = styled.div`
   margin-top: 18px;
 `
 
-const DishMainName = styled.p `
+const DishMainName = styled.p`
   width: 167px;
   height: 18px;
   font-family: Roboto;
@@ -30,7 +38,7 @@ const DishMainName = styled.p `
   margin: 0px;
 `
 
-const DishDescription = styled.p `
+const DishDescription = styled.p`
   width: 200px;
   height: 30px;
   font-family: Roboto;
@@ -44,7 +52,7 @@ const DishDescription = styled.p `
   margin: 0px;
   margin-top: 8px;
 `
-const Price = styled.p `
+const Price = styled.p`
   width: 118px;
   height: 19px;
   font-family: Roboto;
@@ -59,7 +67,7 @@ const Price = styled.p `
   margin-top: 4px;
 `
 
-const ButtonAdd = styled.button `
+const ButtonAdd = styled.button`
   width: 90px;
   height: 31px;
   border-top-left-radius: 8px;
@@ -74,7 +82,7 @@ const ButtonAdd = styled.button `
 
 `
 
-const ButtonRemove = styled.button `
+const ButtonRemove = styled.button`
   width: 90px;
   height: 31px;
   border-top-left-radius: 8px;
@@ -92,7 +100,7 @@ const ButtonRemove = styled.button `
 
 `
 
-const TextButton = styled.p `
+const TextButton = styled.p`
   width: 48px;
   height: 14px;
   font-family: Roboto;
@@ -108,19 +116,52 @@ const TextButton = styled.p `
   
 `
 
+function FormDialog(props) {
+  const [open, handleOpen] = React.useState(false)
+  return (
+    <div>
+      <ButtonAdd variant="outlined" color="primary" onClick={() => handleOpen(true)}>
+        <TextButton>Adicionar</TextButton>
+      </ButtonAdd>
+      <Dialog
+        open={open}
+        onClose={() => handleOpen(false)}
+      >
+        <DialogTitle >Selecione a quantidade</DialogTitle>
+        <DialogContent>
+          <input type='number' />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => handleOpen(false)} color="primary">
+            ADICIONAR AO CARRINHO
+            </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+  );
 
-export default function DishCard() {
+}
+
+
+export function DishCard(props) {
+
   return (
     <MainContainer>
-      <img src={ImgDish} alt="PratoDoRestaurante"/>
+      <img width='100' src={props.photoUrl} alt="PratoDoRestaurante" />
       <TextContainer>
-        <DishMainName>Stencil</DishMainName>
-        <DishDescription>Pão, carne, queijo, cebola roxa, tomate, alface e molho</DishDescription>
-        <Price>R$ 67,70</Price>
-        <ButtonAdd>
+        <DishMainName>{props.name}</DishMainName>
+        <DishDescription>{props.description}</DishDescription>
+        <Price>{`R$ ${props.price}`}</Price>
+        {/* <ButtonAdd>
           <TextButton>Adicionar</TextButton>
-        </ButtonAdd>
+        </ButtonAdd> */}
+        <FormDialog />
       </TextContainer>
     </MainContainer>
   );
 }
+
+
+
+
+

@@ -35,7 +35,7 @@ const ContextP = styled.p`
   margin-bottom: 8px;
 `
 
-export  class RestaurantCard extends Component {
+export class RestaurantCard extends Component {
   constructor(props){
     super(props)
   }
