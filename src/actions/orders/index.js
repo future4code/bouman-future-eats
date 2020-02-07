@@ -15,7 +15,7 @@ const storeOrderHistory = orderHistory => ({
 
 export const updateSelectedDishes = (id, quantity) => ({
     type: 'UPDATE_SELECTED_DISHES',
-    payload: {id, quantity}
+    payload: { id, quantity }
 })
 
 export const removeDish = id => ({
@@ -41,11 +41,12 @@ export const placeOrder = (order, selectedRestaurant) => dispatch => {
 
     axios.post(
         `${baseUrl}/restaurants/${selectedRestaurant.id}/order`,
-        data, 
+        data,
         headers
     ).then(
         response => {
-           dispatch( storeActiveOrder(response.data.order) )            
+            alert("Seu pedido foi enviado!")
+            dispatch(storeActiveOrder(response.data.order))
         }
     ).catch(
         error => alert(error)
@@ -68,7 +69,7 @@ export const getActiveOrder = () => dispatch => {
         headers
     ).then(
         response => {
-           dispatch( storeActiveOrder(response.data.order) )            
+            dispatch(storeActiveOrder(response.data.order))
         }
     ).catch(
         error => alert(error)
@@ -91,7 +92,7 @@ export const getOrderHistory = () => dispatch => {
         headers
     ).then(
         response => {
-           dispatch( storeOrderHistory(response.data.order) )            
+            dispatch(storeOrderHistory(response.data.order))
         }
     ).catch(
         error => alert(error)
