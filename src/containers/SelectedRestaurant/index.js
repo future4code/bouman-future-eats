@@ -15,7 +15,6 @@ align-items: center;
 margin-top: 10px;
 `
 
-const BottomNavDiv = styled.div ``
 
 const StyledDishMenuTittle = styled.p `
   width: 328px;
@@ -29,8 +28,11 @@ const StyledDishMenuTittle = styled.p `
   color: #000000;
   border-bottom: 1px solid black;
   padding-bottom: 5px;
+`
 
-
+const BottomNavDiv = styled.div `
+    position: sticky;
+    bottom: 0px;
 `
 
 const AjustScreenMobile = styled.div`
@@ -42,6 +44,8 @@ const AjustScreenMobile = styled.div`
 
 export function SelectedRestaurants(props) {
     return (
+
+    <div>
         <AjustScreenMobile>
             <HeaderNav menuText='Restaurante' onClick={props.goBack}/>
 
@@ -66,11 +70,15 @@ export function SelectedRestaurants(props) {
                     />
 
                     )}
-                </MainContainer>
-
-                <BottomNav/>    
+                </MainContainer>   
             
         </AjustScreenMobile>
+        <BottomNavDiv>
+            <BottomNav/>
+        </BottomNavDiv>                
+         
+
+    </div>    
 
         
 
