@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import styled from 'styled-components'
 import ClockImg from '../../img/clock.png'
 
+import {connect} from 'react-redux'
+
 const MainContainer = styled.div`
 height: 118px;
 background-color: #5cb646;
@@ -42,13 +44,16 @@ const StyledP = styled.p `
 
 
 function OnGoingOrder (props){
+
+  
+
   return(
     <MainContainer>
       <img src={ClockImg}/>
       <TextDiv>
         <StyledP>Pedido em andamento</StyledP>
-        <StyledP style={{color: "black"}}> Bullguer Vila Madalena</StyledP>
-        <StyledP style={{color: "black" , fontWeight: "bold"}} >SUBTOTAL R$67.00</StyledP>
+        <StyledP style={{color: "black"}}> {props.restaurant}</StyledP>
+        <StyledP style={{color: "black" , fontWeight: "bold"}} >SUBTOTAL R${props.totalPrice}</StyledP>
       </TextDiv>
     </MainContainer>
   )
