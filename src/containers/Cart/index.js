@@ -6,6 +6,7 @@ import {ActionButton} from '../../components/ActionButton/index'
 import BottomNav from '../../components/BottomNav/index'
 import { connect } from 'react-redux'
 import {getProfile} from '../../actions/users'
+import {getRestaurants} from '../../actions/restaurants'
 
 
 const MainContainer = styled.div`
@@ -207,6 +208,7 @@ export  class Cart extends Component {
   }
    componentDidMount() {
      this.props.getProfile()
+     this.props.getRestaurants()
    }
 
   render() {
@@ -221,25 +223,41 @@ export  class Cart extends Component {
         </MainContainer>
         <FitPageContainer>
           <RestaurantDescribe>
-            Bullguer Vila Madalena
+            {this.props.selectedRestaurant.name}
           </RestaurantDescribe>
 
           <RestaurantDescribe style={{color: "#b8b8b8"}}>
-            Rua Fradique Coutinho, 1136 - Vila Madalena
+            {this.props.selectedRestaurant.address}
           </RestaurantDescribe>
 
           <RestaurantDescribe style={{color: "#b8b8b8"}}>
-            30 - 45 min
+          {this.props.selectedRestaurant.deliveryTime - 5 } - 
+            {this.props.selectedRestaurant.deliveryTime} min
           </RestaurantDescribe>
+          {this.props.selectedDishes.map (
+            dish => (
+              this.props.selectedRestaurant.products.filter(
+                product => product.id === dish.id
+              ).map (
+              product => 
+              <DishCard name={product.name} 
+                        description={product.description}
+                        price={product.price} 
+                        photoUrl={product.photoUrl}
+                        id={product.id}/>
+                        
+              )
+            )
 
-          <DishCard name="Stencil" description="Pão, carne, queijo, cebola-roxa, tomate, alface e molho" price="46,0" photoUrl="http://soter.ninja/futureFoods/logos/tadashii.png"/>
-
-          <DishCard name="Rock Ribs" description="Pão, carne, queijo, cebola-roxa, tomate, alface e molho" price="46,0" photoUrl="http://soter.ninja/futureFoods/logos/tadashii.png"/>
+          ) 
+          
+          } 
+          
         
         {/* Aqui começa a aba de preços */}
 
           <DeliverPriceDiv>
-            <DeliverPrice>Frete R$ 6,00</DeliverPrice>
+            <DeliverPrice>Frete R$ {this.props.selectedRestaurant.shipping}</DeliverPrice>
           </DeliverPriceDiv>
         
         {/* Subtotal Div estilizada  */}
@@ -287,9 +305,11 @@ export default connect(
   state => ({
       selectedRestaurant: state.restaurants.selectedRestaurant,
       profile: state.users.profile,
+      selectedDishes: state.orders.selectedDishes,
   }),
   dispatch => ({
-      getProfile: () => dispatch (getProfile())
+      getProfile: () => dispatch (getProfile()),
+      getRestaurants: () => dispatch(getRestaurants())
   })
   )
   
