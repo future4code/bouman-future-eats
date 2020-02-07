@@ -9,6 +9,7 @@ const MainContainer = styled.div `
   border-radius: 8px;
   border: solid 1px #b8b8b8;
   margin-bottom: 8px;
+  align-items: center;
 `
 
 const ImgLogoDiv = styled.div `
@@ -22,8 +23,16 @@ const ImgLogoDiv = styled.div `
   }
 `
 
+const TextDiv = styled.div `
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px;
+`
+
 const RestaurantName = styled.p`
-  width: 328px;
+  width: 320px;
   height: 18px;
   font-family: Roboto;
   font-size: 16px;
@@ -33,7 +42,9 @@ const RestaurantName = styled.p`
   line-height: normal;
   letter-spacing: -0.39px;
   color: #5cb646;
-  padding: 16px;
+  display: flex;
+  margin-left: 5px;
+  box-sizing: border-box;
 `
 
 const ContextP = styled.p`
@@ -51,7 +62,7 @@ const ContextP = styled.p`
   margin-bottom: 8px;
   display: flex;
   justify-content: space-between;
-  padding: 0px 16px;
+  box-sizing: border-box;
 `
 
 export class RestaurantCard extends Component {
@@ -64,9 +75,11 @@ export class RestaurantCard extends Component {
         <ImgLogoDiv>
           <img src={this.props.photoUrl}/>
         </ImgLogoDiv>
-        <RestaurantName>{this.props.name}</RestaurantName>        
-        <ContextP><span>{`${this.props.deliveryTime - 5} - ${this.props.deliveryTime} min `}</span><span>{`Frete R$${this.props.shipping},00`}</span></ContextP>
-        <ContextP>{this.props.address}</ContextP>
+        <TextDiv>
+          <RestaurantName>{this.props.name}</RestaurantName>        
+          <ContextP><span>{`${this.props.deliveryTime - 5} - ${this.props.deliveryTime} min `}</span><span>{`Frete R$${this.props.shipping},00`}</span></ContextP>
+          <ContextP>{this.props.address}</ContextP>
+        </TextDiv>
       </MainContainer>
     );
   }
