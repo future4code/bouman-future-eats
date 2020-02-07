@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components'
-import { updateSelectedDishes } from '../../actions/orders'
+import { updateSelectedDishes, removeDish } from '../../actions/orders'
 import { connect } from 'react-redux';
 import SelectQuantity, {TextButton} from '../SelectQuantity'
 
@@ -117,7 +117,7 @@ function DishCard(props) {
         {quantity().length !== 0 && (<Quantity><TextButton>{quantity()}</TextButton></Quantity>)}
 
         {quantity().length !== 0 ? 
-        <ButtonRemove><p>Remover</p></ButtonRemove> : 
+        <ButtonRemove onClick={() => props.removeDish(props.id)}><p>Remover</p></ButtonRemove> : 
         <SelectQuantity updateSelectedDishes={props.updateSelectedDishes} id={props.id}/>}
 
       </TextContainer>
@@ -130,7 +130,8 @@ export default connect(
     selectedDishes: state.orders.selectedDishes
   }),
   dispatch => ({
-    updateSelectedDishes: (id, quantity) => dispatch(updateSelectedDishes(id, quantity))
+    updateSelectedDishes: (id, quantity) => dispatch(updateSelectedDishes(id, quantity)),
+    removeDish: (id) => dispatch(removeDish(id))
   })
 )(DishCard)
 

@@ -151,9 +151,7 @@ export const getProfile = () => dispatch => {
             dispatch(storeProfile(response.data.user)) 
             if (!response.data.user.hasAddress){
                 dispatch(push(routes.address))
-            } else {
-                dispatch(push(routes.home))
-            }        
+            }     
         }
     ).catch(
         error => alert(error)
