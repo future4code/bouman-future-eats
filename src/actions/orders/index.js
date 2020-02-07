@@ -13,6 +13,16 @@ const storeOrderHistory = orderHistory => ({
     payload: { orderHistory }
 })
 
+export const updateSelectedDishes = (id, quantity) => ({
+    type: 'UPDATE_SELECTED_DISHES',
+    payload: {id, quantity}
+})
+
+export const removeDish = id => ({
+    type: 'REMOVE_DISH',
+    payload: { id }
+})
+
 
 export const placeOrder = (order, selectedRestaurant) => dispatch => {
 

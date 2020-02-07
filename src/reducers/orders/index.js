@@ -1,6 +1,9 @@
 const initialState = {
-    active: {},    
-    history: []
+    active: {},
+    history: [],
+    // possuem as chaves: totalPrice, restaurantName, createdAt, expiresAt
+    selectedDishes: []
+    //possui objetos com as chaves: id, quantity
 }
 
 export const orders = (state = initialState, action) => {
@@ -15,6 +18,15 @@ export const orders = (state = initialState, action) => {
                 ...state,
                 history: action.payload
             })
+        case 'UPDATE_SELECTED_DISHES':
+            return {
+                ...state, 
+                selectedDishes: [
+                    ...state.selectedDishes, 
+                    { id: action.payload.id, quantity: action.payload.quantity} 
+                ]
+            }
+       
         default: return state
     }
 }
