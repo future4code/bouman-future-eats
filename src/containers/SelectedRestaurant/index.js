@@ -5,6 +5,7 @@ import { HeaderNav } from '../../components/HeaderNav'
 import { connect } from 'react-redux'
 import { goBack } from 'connected-react-router'
 import styled from 'styled-components'
+import BottomNav from '../../components/BottomNav/index'
 
 const MainContainer = styled.div `
 display: flex;
@@ -13,6 +14,8 @@ flex-direction: column;
 align-items: center;
 margin-top: 10px;
 `
+
+const BottomNavDiv = styled.div ``
 
 const StyledDishMenuTittle = styled.p `
   width: 328px;
@@ -64,8 +67,12 @@ export function SelectedRestaurants(props) {
 
                     )}
                 </MainContainer>
+
+                <BottomNav/>    
             
         </AjustScreenMobile>
+
+        
 
     )
 }
