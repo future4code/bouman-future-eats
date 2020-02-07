@@ -1,96 +1,89 @@
 import React from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Dialog from '@material-ui/core/Dialog';
+import Button from '@material-ui/core/Button';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 
 
-const Rectangle = styled.div`
-  width: 328px;
-  height: 216px;
-  background-color: #ffffff;
-  border: 1px solid red; 
-`
-//A borda é só pra visualizar melhor o componente
-
-const Title = styled.div`
-  width: 360px;
-  height: 42px;
-` 
-
-const Text = styled.p`
-    width: 296px;
-  height: 18px;
+export const TextButton = styled.p`
+  width: 48px;
+  height: 14px;
   font-family: Roboto;
-  font-size: 16px;
+  font-size: 12px;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: -0.39px;
+  letter-spacing: -0.29px;
   text-align: center;
-  color: #000000;
+  color: #5cb646;
+  margin: 0px;
 `
-export default function SelectedQuantity (props) {
-  return(
-    <Rectangle>
-        <Title>
-            <Text>Selecione a quantidade desejada</Text> 
-        </Title>
 
-        <ExpansionPanel>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography>0</Typography>
-          </ExpansionPanelSummary>
+const SelectNumberOfItems = styled.select`
+  width: 100%;
+  height: 56px;
+  border-radius: 4px;
+  border: solid 1px #b8b8b8;
+`
+const ButtonAdd = styled.button`
+  width: 90px;
+  height: 31px;
+  border-top-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border: solid 1px #5cb646;
+  background: white;
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  display: flex;
+  justify-content: center;
 
-          <ExpansionPanelDetails>
-            <Typography>1</Typography>
-          </ExpansionPanelDetails>
+`
 
-          <ExpansionPanelDetails>
-            <Typography>2</Typography>
-          </ExpansionPanelDetails>
+function SelectQuantity(props) {
+  const [open, handleOpen] = React.useState(false)
+  const [quantity, setQuantity] = React.useState(0)
 
-          <ExpansionPanelDetails>
-            <Typography>3</Typography>
-          </ExpansionPanelDetails>
+  const addDish = () => {
+    handleOpen(false)
+    if (quantity) props.updateSelectedDishes(props.id, quantity)
+  }
 
-          <ExpansionPanelDetails>
-            <Typography>4</Typography>
-          </ExpansionPanelDetails>
+  return (
+    <div>
+      <ButtonAdd variant="outlined" color="primary" onClick={() => handleOpen(true)}>
+        <TextButton>Adicionar</TextButton>
+      </ButtonAdd>
+      <Dialog
+        open={open}
+        onClose={() => handleOpen(false)}
+      >
+        <DialogTitle >Selecione a quantidade</DialogTitle>
+        <DialogContent>
+          <SelectNumberOfItems
+            type='number'
+            value={quantity}
+            onChange={ev => setQuantity(ev.target.value)}
+          >
+            {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(
+              number => <option>{number}</option>
+            )}
+          </SelectNumberOfItems>      
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={addDish} color="primary">
+            ADICIONAR AO CARRINHO
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+  );
 
-          <ExpansionPanelDetails>
-            <Typography>5</Typography>
-          </ExpansionPanelDetails>
-
-          <ExpansionPanelDetails>
-            <Typography>6</Typography>
-          </ExpansionPanelDetails>
-
-          <ExpansionPanelDetails>
-            <Typography>7</Typography>
-          </ExpansionPanelDetails>
-
-          <ExpansionPanelDetails>
-            <Typography>8</Typography>
-          </ExpansionPanelDetails>
-
-          <ExpansionPanelDetails>
-            <Typography>9</Typography>
-          </ExpansionPanelDetails>
-
-          <ExpansionPanelDetails>
-            <Typography>10</Typography>
-          </ExpansionPanelDetails>
-
-      </ExpansionPanel>
-    </Rectangle>
-  )
 }
 
+export default SelectQuantity;
 

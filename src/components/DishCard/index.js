@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from 'styled-components'
-import ImgDish from '../../img/dishImg.png'
+import { updateSelectedDishes } from '../../actions/orders'
+import { connect } from 'react-redux';
+import SelectQuantity, {TextButton} from '../SelectQuantity'
+
 
 const MainContainer = styled.div`
   width: 328px;
@@ -9,6 +12,7 @@ const MainContainer = styled.div`
   border: solid 1px #b8b8b8;
   display:flex;
   position: relative;
+  margin-bottom: 8px;
   `
 
 const TextContainer = styled.div`
@@ -16,7 +20,7 @@ const TextContainer = styled.div`
   margin-top: 18px;
 `
 
-const DishMainName = styled.p `
+const DishMainName = styled.p`
   width: 167px;
   height: 18px;
   font-family: Roboto;
@@ -30,7 +34,7 @@ const DishMainName = styled.p `
   margin: 0px;
 `
 
-const DishDescription = styled.p `
+const DishDescription = styled.p`
   width: 200px;
   height: 30px;
   font-family: Roboto;
@@ -44,7 +48,7 @@ const DishDescription = styled.p `
   margin: 0px;
   margin-top: 8px;
 `
-const Price = styled.p `
+const Price = styled.p`
   width: 118px;
   height: 19px;
   font-family: Roboto;
@@ -59,22 +63,7 @@ const Price = styled.p `
   margin-top: 4px;
 `
 
-const ButtonAdd = styled.button `
-  width: 90px;
-  height: 31px;
-  border-top-left-radius: 8px;
-  border-bottom-right-radius: 8px;
-  border: solid 1px #5cb646;
-  background: white;
-  position: absolute;
-  right: 0px;
-  bottom: 0px;
-  display: flex;
-  justify-content: center;
-
-`
-
-const ButtonRemove = styled.button `
+const ButtonRemove = styled.button`
   width: 90px;
   height: 31px;
   border-top-left-radius: 8px;
@@ -89,38 +78,62 @@ const ButtonRemove = styled.button `
   p {
     color: #e02020
   }
-
 `
 
-const TextButton = styled.p `
-  width: 48px;
-  height: 14px;
-  font-family: Roboto;
-  font-size: 12px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: -0.29px;
-  text-align: center;
-  color: #5cb646;
-  margin: 0px;
-  
+const Quantity = styled.button`
+  width: 40px;
+  height: 31px;
+  border-top-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+  border: solid 1px #5cb646;
+  background: white;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  display: flex;
+  justify-content: center;
+  p {
+    color: #5cb646
+  }
 `
 
 
-export default function DishCard() {
+function DishCard(props) {
+
+  const quantity = () => props.selectedDishes.filter(
+    dish => dish.id === props.id
+  ).map(
+    dish => dish.quantity
+  )
+
   return (
     <MainContainer>
-      <img src={ImgDish} alt="PratoDoRestaurante"/>
+      <img width='100' src={props.photoUrl} alt="PratoDoRestaurante" />
       <TextContainer>
-        <DishMainName>Stencil</DishMainName>
-        <DishDescription>Pão, carne, queijo, cebola roxa, tomate, alface e molho</DishDescription>
-        <Price>R$ 67,70</Price>
-        <ButtonAdd>
-          <TextButton>Adicionar</TextButton>
-        </ButtonAdd>
+        <DishMainName>{props.name}</DishMainName>
+        <DishDescription>{props.description}</DishDescription>
+
+        <Price>{`R$ ${props.price}`}</Price>
+        {quantity().length !== 0 && (<Quantity><TextButton>{quantity()}</TextButton></Quantity>)}
+
+        {quantity().length !== 0 ? 
+        <ButtonRemove><p>Remover</p></ButtonRemove> : 
+        <SelectQuantity updateSelectedDishes={props.updateSelectedDishes} id={props.id}/>}
+
       </TextContainer>
     </MainContainer>
   );
 }
+
+export default connect(
+  state => ({
+    selectedDishes: state.orders.selectedDishes
+  }),
+  dispatch => ({
+    updateSelectedDishes: (id, quantity) => dispatch(updateSelectedDishes(id, quantity))
+  })
+)(DishCard)
+
+
+
+
