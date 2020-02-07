@@ -284,7 +284,7 @@ export class Cart extends Component {
           {/* Aqui começa a aba de preços */}
 
           <DeliverPriceDiv>
-            <DeliverPrice>Frete R$ {this.props.selectedRestaurant.shipping}</DeliverPrice>
+            <DeliverPrice>Frete R$ {this.props.selectedRestaurant.shipping},00</DeliverPrice>
           </DeliverPriceDiv>
 
           {/* Subtotal Div estilizada  */}
