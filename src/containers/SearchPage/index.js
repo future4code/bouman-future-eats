@@ -17,8 +17,20 @@ const Text = styled.div`
 function SearchPage(props) {
     //react hooks
     const [restaurantName, setName] = React.useState("")
+    const generateSearchResults = () =>
+        props.restaurantList.filter((restaurant) => restaurant.name.includes(restaurantName))
+            .map(
+                (restaurant) => <RestaurantCard
+                    name={restaurant.name}
+                    category={restaurant.category}
+                    photoUrl={restaurant.logoUrl}
+                    shipping={restaurant.shipping}
+                    deliveryTime={restaurant.deliveryTime}
+                    onclick={() => props.getRestaurantDetails(restaurant.id)}
+                />
+            )
 
-    if (restaurantName) {
+    if (!restaurantName) {
         return (
             <div>
                 <HeaderNav onClick={() => props.goBack()} menuText="Busca" />
@@ -31,23 +43,21 @@ function SearchPage(props) {
                         Busque por nome de restaurante
                         </Typography>
                 </Text>
-
-                <div>
-                    {props.restaurantList.filter((restaurant) => restaurant.name.includes(restaurantName))
-                        .map(
-                            (restaurant) => <RestaurantCard
-                                name={restaurant.name}
-                                category={restaurant.category}
-                                photoUrl={restaurant.logoUrl}
-                                shipping={restaurant.shipping}
-                                deliveryTime={restaurant.deliveryTime}
-                                onclick={() => props.getRestaurantDetails(restaurant.id)}
-                            />
-                        )}
-                </div>
             </div>
         )
-    } if (setName) {
+    } else if (generateSearchResults().length) {
+        return (
+            <div>
+                <HeaderNav onClick={() => props.goBack()} menuText="Busca" />
+                <SearchBar
+                    value={restaurantName}
+                    onChange={(ev) => (setName(ev.target.value))}
+                />
+                {generateSearchResults()}
+            </div>
+
+        )
+    } else {
         return (
             <div>
                 <HeaderNav onClick={() => props.goBack()} menuText="Busca" />
@@ -57,9 +67,10 @@ function SearchPage(props) {
                 />
                 <Text>
                     <Typography variant="h6">
-                        Busque por nome de restaurante
-                        </Typography>
+                        Não encontramos :(
+                    </Typography>
                 </Text>
+
             </div>
         )
     }
