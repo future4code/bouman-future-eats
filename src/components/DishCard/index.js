@@ -1,14 +1,13 @@
 import React from 'react';
 import styled from 'styled-components'
-import ImgDish from '../../img/dishImg.png'
-
-
 import Dialog from '@material-ui/core/Dialog';
 import Button from '@material-ui/core/Button';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { updateSelectedDishes } from '../../actions/orders'
+import { connect } from 'react-redux';
+
 
 const MainContainer = styled.div`
   width: 328px;
@@ -118,6 +117,13 @@ const TextButton = styled.p`
 
 function FormDialog(props) {
   const [open, handleOpen] = React.useState(false)
+  const [quantity, setQuantity] = React.useState(0)
+
+  const addDish = () => {
+    handleOpen(false)
+    props.updateSelectedDishes(props.id, quantity)
+  }
+
   return (
     <div>
       <ButtonAdd variant="outlined" color="primary" onClick={() => handleOpen(true)}>
@@ -129,12 +135,20 @@ function FormDialog(props) {
       >
         <DialogTitle >Selecione a quantidade</DialogTitle>
         <DialogContent>
-          <input type='number' />
+          <select
+            type='number'
+            value={quantity}
+            onChange={ev => setQuantity(ev.target.value)}
+          >
+            {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(
+              number => <option>{number}</option>
+            )}
+          </select>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => handleOpen(false)} color="primary">
+          <Button onClick={addDish} color="primary">
             ADICIONAR AO CARRINHO
-            </Button>
+          </Button>
         </DialogActions>
       </Dialog>
     </div>
@@ -143,7 +157,7 @@ function FormDialog(props) {
 }
 
 
-export function DishCard(props) {
+function DishCard(props) {
 
   return (
     <MainContainer>
@@ -152,15 +166,22 @@ export function DishCard(props) {
         <DishMainName>{props.name}</DishMainName>
         <DishDescription>{props.description}</DishDescription>
         <Price>{`R$ ${props.price}`}</Price>
-        {/* <ButtonAdd>
-          <TextButton>Adicionar</TextButton>
-        </ButtonAdd> */}
-        <FormDialog />
+
+        
+
+        <FormDialog updateSelectedDishes={props.updateSelectedDishes} id={props.id}/>
+
       </TextContainer>
     </MainContainer>
   );
 }
 
+export default connect(
+  state => ({}),
+  dispatch => ({
+    updateSelectedDishes: (id, quantity) => dispatch(updateSelectedDishes(id, quantity))
+  })
+)(DishCard)
 
 
 
