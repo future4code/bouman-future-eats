@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Ongoing order snapshot 1`] = `
+<div
+  className="sc-bdVaJa jCOqdb"
+>
+  <img
+    src="clock.png"
+  />
+  <div
+    className="sc-bwzfXH brfdCc"
+  >
+    <p
+      className="sc-htpNat iInFLm"
+    >
+      Pedido em andamento
+    </p>
+    <p
+      className="sc-htpNat iInFLm"
+      style={
+        Object {
+          "color": "black",
+        }
+      }
+    >
+       Bullguer Vila Madalena
+    </p>
+    <p
+      className="sc-htpNat iInFLm"
+      style={
+        Object {
+          "color": "black",
+          "fontWeight": "bold",
+        }
+      }
+    >
+      SUBTOTAL R$67.00
+    </p>
+  </div>
+</div>
+`;

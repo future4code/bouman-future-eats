@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { goBack } from 'connected-react-router';
 import { routes } from '../Router/index';
 import { HeaderNav } from '../../components/HeaderNav';
+import { updateProfile } from '../../actions/users'
 
 const Root = styled.div`
   width: 100vw;
@@ -30,16 +31,21 @@ const FormContainer = styled.form`
 `
 
 function EditProfile(props) {
-    const [name, setName] = useState("")
-    const [email, setEmail] = useState("")
-    const [cpf, setCpf] = useState("")
+    const [name, setName] = useState(props.profile.name)
+    const [email, setEmail] = useState(props.profile.email)
+    const [cpf, setCpf] = useState(props.profile.cpf)
 
+    const handleSubmit = (ev) => {
+        ev.preventDefault()
+        props.updateProfile({name, email, cpf})
+        props.goBack()
+    }
 
     return (
         <Root>
             <HeaderNav onClick={() => props.goBack()} menuText="Editar" />
 
-            <FormContainer noValidate autoComplete="off">
+            <FormContainer onSubmit={handleSubmit} autoComplete="off">
 
                 <TextField
                     name="name"
@@ -80,7 +86,7 @@ function EditProfile(props) {
                     pattern={props.pattern}
                 />
 
-                <ActionButton text="Salvar" />
+                <ActionButton type="submit" text="Salvar" />
 
             </FormContainer>
         </Root>
@@ -89,6 +95,11 @@ function EditProfile(props) {
 
 const mapDispatchToProps = dispatch => ({
     goBack: () => dispatch(goBack()),
+    updateProfile: (profile) => dispatch(updateProfile(profile)),
 })
 
-export default connect(null, mapDispatchToProps)(EditProfile)
+const mapStateToProps = state => ({
+    profile: state.users.profile
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditProfile)

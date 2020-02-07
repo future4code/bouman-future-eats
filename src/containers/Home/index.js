@@ -8,7 +8,7 @@ import { goBack } from 'connected-react-router';
 import { push } from 'connected-react-router';
 import { routes } from '../Router/index';
 
-function Home(props){
+export function Home(props){
     //react hooks
 
     return (
