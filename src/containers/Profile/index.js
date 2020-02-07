@@ -10,6 +10,9 @@ import IconButton from "@material-ui/core/IconButton";
 import EditIcon from "@material-ui/icons/EditOutlined";
 import Typography from "@material-ui/core/Typography";
 import styled from "styled-components";
+import { push } from 'connected-react-router';
+import { routes } from '../Router'
+import { getProfile } from '../../actions/users'
 
 const StyledList = styled(List)`
     background-color: white;
@@ -33,27 +36,29 @@ const Pedidos = styled.div`
 
 
 function Profile(props){
-    //react hooks
+
+    React.useEffect(() => props.getProfile()
+    , [])
 
     return (
         <div>
             <HeaderNav display='none' menuText='Meu Perfil'/>
             <StyledList>
                   <StyledListItem>
-                    <Typography variant="p">Bruna Oliveira</Typography>
-                    <Typography variant="p">bruna_o@gmail.com</Typography>
-                    <Typography variant="p">333.333.333-33</Typography>
+                    <Typography variant="p">{props.profileData.name}</Typography>
+                    <Typography variant="p">{props.profileData.email}</Typography>
+                    <Typography variant="p">{props.profileData.cpf}</Typography>
                     <ListItemSecondaryAction>
-                      <IconButton aria-label="Edit">
+                      <IconButton onClick={props.goToEditProfile} aria-label="Edit">
                         <EditIcon />
                       </IconButton>
                     </ListItemSecondaryAction>
                   </StyledListItem>
                   <StyledListItem>
                   <ListItemText secondary="Endereço cadastrado"></ListItemText>
-                  <Typography variant="p">Rua Alessandra Vieira, 42 - Santana</Typography>
+                  <Typography variant="p">{props.profileData.address}</Typography>
                     <ListItemSecondaryAction>
-                    <IconButton aria-label="Edit">
+                    <IconButton onClick={props.goToEditAddress} aria-label="Edit">
                         <EditIcon />
                     </IconButton>
                     </ListItemSecondaryAction>
@@ -73,4 +78,15 @@ function Profile(props){
     )
 }
 
-export default connect()(Profile)
+const mapStateToProps = (state) => ({
+    profileData: state.users.profile,
+    orderHistory: state.orders.history
+})
+
+const mapDispatchToProps = (dispatch) => ({
+    goToEditProfile: () => dispatch(push(routes.editProfile)),
+    goToEditAddress: () => dispatch(push(routes.editAddress)),
+    getProfile: () => dispatch(getProfile())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile)
