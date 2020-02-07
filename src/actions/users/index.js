@@ -73,8 +73,7 @@ export const addAddress = address => dispatch => {
     ).then(
         response => {
             window.localStorage.setItem('token', response.data.token)
-            dispatch(storeProfile(response.data.user))
-            dispatch(push(routes.home))            
+            dispatch(storeProfile(response.data.user))           
         }
     ).catch(
         error => alert(error)
@@ -151,9 +150,7 @@ export const getProfile = () => dispatch => {
             dispatch(storeProfile(response.data.user)) 
             if (!response.data.user.hasAddress){
                 dispatch(push(routes.address))
-            } else {
-                dispatch(push(routes.home))
-            }        
+            }     
         }
     ).catch(
         error => alert(error)

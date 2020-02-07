@@ -48,33 +48,32 @@ const styles = theme => ({
     },
 });
 
-class SearchBar extends React.Component {
-
-    render() {
-        const { classes } = this.props;
-
-        return (
-            <div className={classes.root}>
-                <AppBar color="" position="static">
-                    <Toolbar>
-                        <div className={classes.search}>
-                            <div className={classes.searchIcon}>
-                                <SearchIcon />
-                            </div>
-                            <InputBase
-                                placeholder="Restaurante"
-                                classes={{
-                                    root: classes.inputRoot,
-                                    input: classes.inputInput,
-                                }}
-                                
-                            />
+function SearchBar(props) {
+    const { classes } = props;
+    
+    return (
+        <div className={classes.root}>
+            <AppBar color="" position="static">
+                <Toolbar>
+                    <div className={classes.search}>
+                        <div className={classes.searchIcon}>
+                            <SearchIcon />
                         </div>
-                    </Toolbar>
-                </AppBar>
-            </div>
-        );
-    }
+                        <InputBase
+                            placeholder="Restaurante"
+                            classes={{
+                                root: classes.inputRoot,
+                                input: classes.inputInput,
+                            }}
+                            onClick={props.onClick}
+                            value={props.value}
+                            onChange={props.onChange}
+                        />
+                    </div>
+                </Toolbar>
+            </AppBar>
+        </div>
+    );
 }
 
 export default withStyles(styles)(SearchBar);

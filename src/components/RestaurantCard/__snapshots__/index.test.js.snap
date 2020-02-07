@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Restaurant card snapshot 1`] = `
+<div
+  className="sc-bdVaJa iDvsqb"
+>
+  <img
+    width="75"
+  />
+  <p
+    className="sc-bwzfXH bQiSkq"
+  />
+  <p
+    className="sc-htpNat kOAIhA"
+  />
+  <p
+    className="sc-htpNat kOAIhA"
+  >
+    undefined min        Frete R$undefined,00
+  </p>
+  <p
+    className="sc-htpNat kOAIhA"
+  />
+</div>
+`;

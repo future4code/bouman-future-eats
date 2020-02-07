@@ -8,12 +8,12 @@ export const users = (state = initialState, action) => {
         case 'STORE_PROFILE':
             return ({
                 ...state,
-                profile: action.payload
+                profile: action.payload.profile
             })
         case 'STORE_ADDRESS_DETAILS':
             return({
                 ...state,
-                addressDetails: action.payload
+                addressDetails: action.payload.address
             })
         default: return state
     }

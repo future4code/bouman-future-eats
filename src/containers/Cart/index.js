@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import styled from 'styled-components'
-import {DishCard} from '../../components/DishCard/index'
+
+import DishCard from '../../components/DishCard/index'
 import {ActionButton} from '../../components/ActionButton/index'
 import BottomNav from '../../components/BottomNav/index'
 import { connect } from 'react-redux'
 import {getProfile} from '../../actions/users'
+
 
 const MainContainer = styled.div`
 display: flex;

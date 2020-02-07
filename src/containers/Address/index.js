@@ -3,8 +3,10 @@ import styled from 'styled-components';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { ActionButton } from '../../components/ActionButton';
-import { connect } from 'react-redux'
-import  { addAddress } from '../../actions/users'
+import { connect } from 'react-redux';
+import { addAddress } from '../../actions/users';
+import { push } from 'connected-react-router';
+import { routes } from '../Router'
 
 
 const Root = styled.div`
@@ -51,7 +53,9 @@ function Address(props) {
                 city,
                 state
             }
-        )
+        ) 
+        props.goHome()
+
     }
 
     return (
@@ -158,7 +162,8 @@ function Address(props) {
 
 function mapDispatchToProps(dispatch){
     return({
-        addAddress: (address) => dispatch(addAddress(address))
+        addAddress: (address) => dispatch(addAddress(address)),
+        goHome: () => dispatch(push(routes.home)) 
     })
 }
 

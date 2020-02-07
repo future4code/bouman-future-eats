@@ -1,11 +1,10 @@
 import React from 'react';
-import styled from 'styled-components';
-import SelectQuantity from '../../components/SelectQuantity'
 import { RestaurantCard } from '../../components/RestaurantCard'
-import { DishCard } from '../../components/DishCard'
+import DishCard from '../../components/DishCard'
 import { HeaderNav } from '../../components/HeaderNav'
 import { connect } from 'react-redux'
 import { goBack } from 'connected-react-router'
+import styled from 'styled-components'
 
 const MainContainer = styled.div `
 display: flex;
@@ -42,6 +41,7 @@ export function SelectedRestaurants(props) {
     return (
         <AjustScreenMobile>
             <HeaderNav menuText='Restaurante' onClick={props.goBack}/>
+
             <MainContainer>
                 <RestaurantCard
                     name={props.selectedRestaurant.name}
@@ -55,6 +55,7 @@ export function SelectedRestaurants(props) {
                     <hr/>
                 {props.selectedRestaurant.products.map(
                     dish => <DishCard
+                        id={dish.id}
                         name={dish.name}
                         photoUrl={dish.photoUrl}
                         price={dish.price}
@@ -63,10 +64,9 @@ export function SelectedRestaurants(props) {
 
                     )}
                 </MainContainer>
-            {/* <SelectQuantity /> */}
-
-
+            
         </AjustScreenMobile>
+
     )
 }
 
