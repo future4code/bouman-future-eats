@@ -4,6 +4,7 @@ import DishCard from '../../components/DishCard'
 import { HeaderNav } from '../../components/HeaderNav'
 import { connect } from 'react-redux'
 import { goBack } from 'connected-react-router'
+import styled from 'styled-components'
 
 const MainContainer = styled.div `
 display: flex;

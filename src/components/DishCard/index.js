@@ -143,8 +143,7 @@ function FormDialog(props) {
       >
         <DialogTitle >Selecione a quantidade</DialogTitle>
         <DialogContent>
-
-          <select
+          <SelectNumberOfItems
             type='number'
             value={quantity}
             onChange={ev => setQuantity(ev.target.value)}
@@ -152,24 +151,7 @@ function FormDialog(props) {
             {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(
               number => <option>{number}</option>
             )}
-          </select>
-
-        
-         // <SelectNumberOfItems>
-          //  <option>1</option>
-           // <option>2</option>
-           // <option>3</option>
-           // <option>4</option>
-            //<option>5</option>
-            //<option>6</option>
-            //<option>7</option>
-          //  <option>8</option>
-        //    <option>9</option>
-       //     <option>10</option>
-      //    </SelectNumberOfItems>
-          
-        
-
+          </SelectNumberOfItems>      
         </DialogContent>
         <DialogActions>
           <Button onClick={addDish} color="primary">

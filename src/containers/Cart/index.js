@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components'
-import {DishCard} from '../../components/DishCard/index'
+import DishCard from '../../components/DishCard/index'
 
 const MainContainer = styled.div`
 display: flex;
