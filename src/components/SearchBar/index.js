@@ -67,7 +67,6 @@ class SearchBar extends React.Component {
                                     root: classes.inputRoot,
                                     input: classes.inputInput,
                                 }}
-                                
                             />
                         </div>
                     </Toolbar>

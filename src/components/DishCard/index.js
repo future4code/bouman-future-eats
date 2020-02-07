@@ -9,6 +9,7 @@ import { updateSelectedDishes } from '../../actions/orders'
 import { connect } from 'react-redux';
 
 
+
 const MainContainer = styled.div`
   width: 328px;
   height: 112px;
@@ -16,6 +17,7 @@ const MainContainer = styled.div`
   border: solid 1px #b8b8b8;
   display:flex;
   position: relative;
+  margin-bottom: 8px;
   `
 
 const TextContainer = styled.div`
@@ -112,7 +114,13 @@ const TextButton = styled.p`
   text-align: center;
   color: #5cb646;
   margin: 0px;
-  
+`
+
+const SelectNumberOfItems = styled.select`
+  width: 100%;
+  height: 56px;
+  border-radius: 4px;
+  border: solid 1px #b8b8b8;
 `
 
 function FormDialog(props) {
@@ -135,6 +143,7 @@ function FormDialog(props) {
       >
         <DialogTitle >Selecione a quantidade</DialogTitle>
         <DialogContent>
+
           <select
             type='number'
             value={quantity}
@@ -144,6 +153,23 @@ function FormDialog(props) {
               number => <option>{number}</option>
             )}
           </select>
+
+        
+         // <SelectNumberOfItems>
+          //  <option>1</option>
+           // <option>2</option>
+           // <option>3</option>
+           // <option>4</option>
+            //<option>5</option>
+            //<option>6</option>
+            //<option>7</option>
+          //  <option>8</option>
+        //    <option>9</option>
+       //     <option>10</option>
+      //    </SelectNumberOfItems>
+          
+        
+
         </DialogContent>
         <DialogActions>
           <Button onClick={addDish} color="primary">
@@ -165,12 +191,15 @@ function DishCard(props) {
       <TextContainer>
         <DishMainName>{props.name}</DishMainName>
         <DishDescription>{props.description}</DishDescription>
+
         <Price>{`R$ ${props.price}`}</Price>
 
         
 
         <FormDialog updateSelectedDishes={props.updateSelectedDishes} id={props.id}/>
 
+
+      
       </TextContainer>
     </MainContainer>
   );
