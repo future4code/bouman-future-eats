@@ -30,6 +30,7 @@ export function InitialPage(props) {
           const token = window.localStorage.getItem('token')
           if (token) {
             props.getProfile()
+            props.goHome()
           } else {
             props.goToLogin()
           }
@@ -48,7 +49,8 @@ export function InitialPage(props) {
 
 const mapDispatchToProps = dispatch => ({
   goToLogin: () => dispatch(push(routes.login)),
-  getProfile: () => dispatch(getProfile())
+  getProfile: () => dispatch(getProfile()),
+  goHome: () => dispatch(push(routes.home))
 })
 
 export default connect(null, mapDispatchToProps)(InitialPage)
