@@ -16,7 +16,7 @@ function Home(props){
             <CategoryTabs />
             <BottomNav />
         </div>
-    )
+    ) 
 }
 
 const mapDispatchToProps = dispatch => ({
