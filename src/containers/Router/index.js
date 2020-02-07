@@ -20,7 +20,7 @@ export const routes = {
   signUp: '/signup/',
   address: '/address/',
   home: '/home/' ,
-  searchPage: '/home/search/',  
+  search: '/search/',  
   restaurants: '/restaurants/',
   cart: '/cart/',
   profile: '/profile/',
@@ -37,7 +37,7 @@ function Router(props) {
         <Route exact path={routes.signUp} component={SignUp} />
         <Route exact path={routes.address} component={Address} />
         <Route exact path={routes.home} component={Home} />
-        <Route exact path={routes.searchPage} component={SearchPage} />
+        <Route exact path={routes.search} component={SearchPage} />
         <Route exact path={routes.restaurants} component={SelectedRestaurant} />
         <Route exact path={routes.cart} component={Cart} />
         <Route exact path={routes.profile} component={Profile} />
