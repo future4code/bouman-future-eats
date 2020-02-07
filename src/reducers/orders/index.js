@@ -26,6 +26,11 @@ export const orders = (state = initialState, action) => {
                     { id: action.payload.id, quantity: action.payload.quantity} 
                 ]
             }
+
+        case 'REMOVE_DISH':
+            const filteredSelectedDishes = state.selectedDishes.filter(
+                dish => dish.id !== action.payload.id)
+            return {...state, selectedDishes: filteredSelectedDishes}
        
         default: return state
     }
