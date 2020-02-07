@@ -11,7 +11,7 @@ export const orders = (state = initialState, action) => {
         case 'STORE_ACTIVE_ORDER':
             return ({
                 ...state,
-                active: action.payload
+                active: action.payload.activeOrder
             })
         case 'STORE_ORDER_HISTORY':
             return ({

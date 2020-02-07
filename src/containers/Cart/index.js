@@ -8,6 +8,8 @@ import { connect } from 'react-redux'
 import { getProfile } from '../../actions/users'
 import { getRestaurants } from '../../actions/restaurants'
 import { placeOrder } from '../../actions/orders'
+import {push} from 'connected-react-router'
+import {routes} from '../Router'
 
 
 const MainContainer = styled.div`
@@ -234,6 +236,7 @@ export class Cart extends Component {
       },
       this.props.selectedRestaurant
     )
+    this.props.goHome()
     
   }
 
@@ -342,7 +345,8 @@ export default connect(
   dispatch => ({
     getProfile: () => dispatch(getProfile()),
     getRestaurants: () => dispatch(getRestaurants()),
-    placeOrder: (order, restaurant) => dispatch(placeOrder(order, restaurant))
+    placeOrder: (order, restaurant) => dispatch(placeOrder(order, restaurant)),
+    goHome: () => dispatch(push(routes.home))
   })
 )
 

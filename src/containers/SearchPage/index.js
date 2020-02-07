@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import styled from 'styled-components';
 import { goBack } from 'connected-react-router';
 import { RestaurantCard } from '../../components/RestaurantCard';
+import {getRestaurantDetails} from '../../actions/restaurants'
 
 const Text = styled.div`
   width: 100%;
@@ -84,6 +85,7 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = dispatch => ({
     goBack: () => dispatch(goBack()),
+    getRestaurantDetails: (id) => dispatch(getRestaurantDetails(id))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchPage)
