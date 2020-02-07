@@ -4,13 +4,14 @@ import BottomNav from "../../components/BottomNav";
 import CategoryTabs from '../../components/CategoryTabs';
 import { HeaderNav } from '../../components/HeaderNav';
 import SearchBar from '../../components/SearchBar';
+import {goBack} from 'connected-react-router';
 
 function Home(props){
     //react hooks
 
     return (
         <div>
-            <HeaderNav onClick={() => props.goBack() } menuText="FutureEats" />
+            <HeaderNav onClick={props.goBack} menuText="FutureEats" />
             <SearchBar />
             <CategoryTabs />
             <BottomNav />
@@ -18,4 +19,8 @@ function Home(props){
     )
 }
 
-export default connect()(Home)
+const mapDispatchToProps = dispatch => ({
+    goBack: () => dispatch(goBack()),
+})
+
+export default connect(null, mapDispatchToProps)(Home)
