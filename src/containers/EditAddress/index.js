@@ -5,6 +5,7 @@ import { ActionButton } from '../../components/ActionButton';
 import { HeaderNav } from '../../components/HeaderNav';
 import { goBack } from 'connected-react-router';
 import { connect } from 'react-redux';
+import { addAddress, getAddressDetails } from '../../actions/users';
 
 const Root = styled.div`
   width: 100vw;
@@ -20,26 +21,45 @@ const FormContainer = styled.form`
 `
 
 function EditAddress(props) {
-    const [logradouro, setLogradouro] = useState("")
-    const [numero, setNumero] = useState("")
-    const [complemento, setComplemento] = useState("")
-    const [bairro, setBairro] = useState("")
-    const [cidade, setCidade] = useState("")
-    const [estado, setEstado] = useState("")
+    const [street, setStreet] = useState(props.address.street)
+    const [number, setNumber] = useState(props.address.number)
+    const [complement, setComplement] = useState(props.address.complement)
+    const [neighbourhood, setNeighbourhood] = useState(props.address.neighbourhood)
+    const [city, setCity] = useState(props.address.city)
+    const [state, setState] = useState(props.address.state)
+
+    const handleSubmit = ev => {
+        ev.preventDefault()
+        props.addAddress(
+            {
+                street,
+                number,
+                complement,
+                neighbourhood,
+                city,
+                state
+            }
+        )
+        props.goBack()
+    }
+
+    React.useEffect(()=>
+        props.getAddressDetails()
+    ,[])
 
     return (
         <Root>
             <HeaderNav onClick={() => props.goBack()} menuText="Endereço" />
 
-            <FormContainer noValidate autoComplete="off">
+            <FormContainer onSubmit={handleSubmit} autoComplete="off">
 
                 <TextField
                     name="logradouro"
                     type="text"
                     label="Logradouro"
                     placeholder="Rua / Av."
-                    value={logradouro}
-                    onChange={(event) => setLogradouro(event.target.value)}
+                    value={street}
+                    onChange={(event) => setStreet(event.target.value)}
                     margin="normal"
                     variant="outlined"
                     required
@@ -51,8 +71,8 @@ function EditAddress(props) {
                     type="text"
                     label="Número"
                     placeholder="Número"
-                    value={numero}
-                    onChange={(event) => setNumero(event.target.value)}
+                    value={number}
+                    onChange={(event) => setNumber(event.target.value)}
                     margin="normal"
                     variant="outlined"
                     required
@@ -64,8 +84,8 @@ function EditAddress(props) {
                     type="text"
                     label="Complemento"
                     placeholder="Apto. / Bloco"
-                    value={complemento}
-                    onChange={(event) => setComplemento(event.target.value)}
+                    value={complement}
+                    onChange={(event) => setComplement(event.target.value)}
                     margin="normal"
                     variant="outlined"
                     pattern={props.pattern}
@@ -76,8 +96,8 @@ function EditAddress(props) {
                     type="text"
                     label="Bairro"
                     placeholder="Bairro"
-                    value={bairro}
-                    onChange={(event) => setBairro(event.target.value)}
+                    value={neighbourhood}
+                    onChange={(event) => setNeighbourhood(event.target.value)}
                     margin="normal"
                     variant="outlined"
                     required
@@ -89,8 +109,8 @@ function EditAddress(props) {
                     type="text"
                     label="Cidade"
                     placeholder="Cidade"
-                    value={cidade}
-                    onChange={(event) => setCidade(event.target.value)}
+                    value={city}
+                    onChange={(event) => setCity(event.target.value)}
                     margin="normal"
                     variant="outlined"
                     required
@@ -102,15 +122,15 @@ function EditAddress(props) {
                     type="text"
                     label="Estado"
                     placeholder="Estado"
-                    value={estado}
-                    onChange={(event) => setEstado(event.target.value)}
+                    value={state}
+                    onChange={(event) => setState(event.target.value)}
                     margin="normal"
                     variant="outlined"
                     required
                     pattern={props.pattern}
                 />
 
-                <ActionButton text="Salvar"></ActionButton>
+                <ActionButton type="submit" text="Salvar"></ActionButton>
 
             </FormContainer>
         </Root>
@@ -119,6 +139,12 @@ function EditAddress(props) {
 
 const mapDispatchToProps = dispatch => ({
     goBack: () => dispatch(goBack()),
+    addAddress: (address) => dispatch(addAddress(address)),
+    getAddressDetails: () => dispatch(getAddressDetails())
 })
 
-export default connect(null, mapDispatchToProps)(EditAddress)
+const mapStateToProps = state => ({
+   address: state.users.addressDetails
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditAddress)
