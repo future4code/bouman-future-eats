@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dish card snapshot 1`] = `
+<div
+  className="sc-bdVaJa jYPUYi"
+>
+  <img
+    alt="PratoDoRestaurante"
+    src="dishImg.png"
+  />
+  <div
+    className="sc-bwzfXH gkimBC"
+  >
+    <p
+      className="sc-htpNat codcUx"
+    >
+      Stencil
+    </p>
+    <p
+      className="sc-bxivhb kFZPIN"
+    >
+      Pão, carne, queijo, cebola roxa, tomate, alface e molho
+    </p>
+    <p
+      className="sc-ifAKCX kVjkDh"
+    >
+      R$ 67,70
+    </p>
+    <button
+      className="sc-EHOje hhMRVz"
+    >
+      <p
+        className="sc-gzVnrw zxOgP"
+      >
+        Adicionar
+      </p>
+    </button>
+  </div>
+</div>
+`;
